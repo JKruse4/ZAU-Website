@@ -96,7 +96,7 @@ class AdminController extends BaseController {
 
         Mail::send('emails.formermember', ['user' => $user], function($message) use ($user)
         {
-            $message->to($user->email)->subject('Removed From ZJX Roster');
+            $message->to($user->email)->subject('Removed From ZAU Roster');
         });
 
         return Redirect::to('/admin/roster')->with('message', 'Controller removed from active roster!');
@@ -133,14 +133,14 @@ class AdminController extends BaseController {
             ]);
 
             Mail::send('emails.pendingvrequests', ['request' => $request], function($message){
-                $message->from('no-reply@zjxartcc.org', 'ZJX No-Reply');
-                $message->to('visit@zjxartcc.org');
-                $message->subject('ZJX - New Visiting Request');
+                $message->from('atm@zauartcc.org', 'ZAU ATM');
+                $message->to('atm@zauartcc.org');
+                $message->subject('ZAU - New Visiting Request');
             });
         
-            return Redirect::to('/')->with('message', 'Visiting Application received and is pending review from the ATM and DATM. 
+            return Redirect::to('/')->witherrors(['message', 'message to be sent', 'Visiting Application received and is pending review from the ATM and DATM. 
                                                        Please make sure you get either your ATM, DATM or Regional Director to send 
-                                                       a reference to visit@zjxartcc.org else your application will not be proocessed!');
+                                                       a reference to visit@zjxartcc.org else your application will not be proocessed!']);
         }
     }
 
