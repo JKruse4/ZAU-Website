@@ -84,49 +84,76 @@ class RosterController extends \BaseController {
      *
      * @return Response
      */
-    public function store()
+public function store()
     {
-        $rules = array(
-            'id' => 'required:unique:roster',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required',
-            'rating_id' => 'required',
-        );
-
-        $validator = Validator::make(Input::all(), $rules);
-
-        if($validator->fails())
-        {
-            return Redirect::route('admin.roster.create')->withErrors($validator)->withInput();
-        }
-        else
-        {
-            $User = User::create([
-                    'id' => Input::get('id'),
-                    'first_name' => Input::get('first_name'),
-                    'last_name' => Input::get('last_name'),
-                    'email' => Input::get('email'),
-                    'rating_id' => Input::get('rating_id'),
-                    'visitor' => empty(Input::get('visitor')) ? 0 : 1,
-                    'visitor_from' => empty(Input::get('visitor_from')) ? null : Input::get('visitor_from'),
-                    'canTrain' => 1
-                ]);
-
-            $data = Input::all();
-            Mail::send('emails.newmember', ['user' => $User], function($message) use ($User)
+        if(User::where('id', '=', Input::get('id'))->exists()) {
+            return Redirect::back()->withErrors(['User already exists.', 'The user already exists on the roster. They may be listed as a home controller, visiting controller, or former controller.']);
+        } else {
+            $rules = array(
+                'id' => 'required:unique:roster',
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'rating_id' => 'required',
+            );
+   
+            $validator = Validator::make(Input::all(), $rules);
+   
+            if($validator->fails())
             {
-                $message->to(Input::get('email'))->subject('Welcome to ZJX');
-                $message->cc('atm@zjxartcc.org');
-                $message->cc('datm@zjxartcc.org');
-            });
-
-            ActivityLog::create(['note' => 'Added Member '. Input::get('id') .' to Roster', 'user_id' => Auth::id(), 'log_state' => 1, 'log_type' => 9]);
-
-            // Create SMF user
-            Artisan::call('zjx:forum');
-
-            return Redirect::route('admin.roster.index')->with('message', 'User successfully added to the roster!');
+                return Redirect::route('admin.roster.create')->withErrors($validator)->withInput();
+            }
+            else
+            {
+                $User = User::create([
+                        'id' => Input::get('id'),
+                        'first_name' => Input::get('first_name'),
+                        'last_name' => Input::get('last_name'),
+                        'initials' => Input::get('controller_initials'),
+                        'email' => Input::get('email'),
+                        'rating_id' => Input::get('rating_id'),
+                        'visitor' => empty(Input::get('visitor')) ? 0 : 1,
+                        'visitor_from' => empty(Input::get('visitor_from')) ? null : Input::get('visitor_from'),
+                        'canTrain' => 1,
+                        'created_at' => Carbon::now()
+                    ]);
+               
+                $newuser = User::find(Input::get('id'));
+   
+                if($newuser->visitor == '1') {
+                    if($newuser->rating_id == '2') {
+                        $newuser->del = '2';
+                        $newuser->gnd = '2';
+                        $newuser->save();
+                    } elseif($newuser->rating_id == '3') {
+                        $newuser->del = '2';
+                        $newuser->gnd = '2';
+                        $newuser->twr = '2';
+                        $newuser->save();
+                    } else {
+                        $newuser->del = '2';
+                        $newuser->gnd = '2';
+                        $newuser->twr = '2';
+                        $newuser->app = '2';
+                        $newuser->save();
+                    }
+                }
+               
+   
+                ActivityLog::create(['note' => 'Added Member '. Input::get('id') .' to Roster', 'user_id' => Auth::id(), 'log_state' => 1, 'log_type' => 9]);
+   
+ 
+                if($User->visitor == '0') {
+                    Mail::send('emails.newmember', ['user' => $User], function($message) use ($User)
+                    {
+                        $message->from('members@ztlartcc.org', 'ZTL Member Department');
+                        $message->to(Input::get('email'))->subject('Welcome to the ZTL ARTCC!');
+                        $message->cc('atm@ztlartcc.org');
+                        $message->cc('datm@ztlartcc.org');
+                    });
+                }
+   
+                return Redirect::route('admin.roster.index')->withErrors(['User Added', 'The user was successfully added to the roster.']);
+            }
         }
     }
 
