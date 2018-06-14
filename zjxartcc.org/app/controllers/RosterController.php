@@ -292,8 +292,8 @@ public function store()
 
         if (!Auth::check() && !isset($_GET['token']))
         {
-            $_SESSION['redirect'] = "https://zjxartcc.org";
-            header("Location: https://login.vatusa.net/uls/v2/login?fac=ZJX"); 
+            $_SESSION['redirect'] = "https://zauartcc.org";
+            header("Location: https://login.vatusa.net/uls/v2/login?fac=ZAU?dev"); 
             exit;
         }
         
@@ -301,7 +301,7 @@ public function store()
         $parts = explode('.', $token);
         $token = $this->base64url_decode($parts[1]);
 
-        $jwk = json_decode('{"alg":"HS256","use":"sig","kty":"oct","k":"EZgub7_5Gs6xgBQg0vYi55PyIRc39fghh0DLw3qs7HEQwP4qited14PcRh4xBvJm1w9N68A8UJrFqvvVcUDmyA"}',   true);
+        $jwk = json_decode('{"alg":"HS256","use":"sig","kty":"oct","k":"9-ymVSYuEodzxclfFrcQN_mpTq9aRHXJFqt2CGqhVJs2Xjo47czie97NaSpkNx5Wwq4rP_KUcVftDDFZLNJbbw"}',   true);
 
         $algorithms = ['HS256' => 'sha256', 'HS384' => 'sha384', 'HS512' => 'sha512'];
 
@@ -318,8 +318,8 @@ public function store()
             if($token['iss'] != 'VATUSA') {
                 return Redirect::action('FrontController@showWelcome')->withMessage("Not issued from VATUSA");
             }
-            if($token['aud'] != 'ZJX') {
-                return Redirect::action('FrontController@showWelcome')->withMessage("Not issued for ZJX");
+            if($token['aud'] != 'ZAU') {
+                return Redirect::action('FrontController@showWelcome')->withMessage("Not issued for ZAU");
             }
 
             $client = new GuzzleHttp\Client();
@@ -333,20 +333,12 @@ public function store()
                     return Redirect::action('FrontController@showWelcome')->withMessage("You are not an active controller, and cannot login.");
                 } else {
                     Auth::login($userstatuscheck, true);
-                    
-                    require("/var/www/forum.zjxartcc.org/smf_2_api.php");
-                    smfapi_login($userstatuscheck->id);
-                    setcookie("ids_loggedin", $res['cid'], 0, "", ".zjxartcc.org");
-                    $_SESSION['loggedin'] = $res['cid'];
                 }
             } else {
                 return Redirect::action('FrontController@showWelcome')->withMessage("No user matching your information on the roster.");
             }
 
             //update email records and rating
-            $forum = SMFMember::find($res['cid']);
-            $forum->email_address = $res['email'];
-            $forum->save();
             $member = User::find($res['cid']);
             $member->rating_id = $res['intRating'];
             $member->email = $res['email'];
@@ -368,8 +360,6 @@ public function store()
     
     public function logout()
     {
-        require("/var/www/forum.zjxartcc.org/smf_2_api.php");
-        @smfapi_logout(Auth::id());
         Auth::logout();
         return Redirect::to('/')->withMessage('You have successfully logged out!');
     }
