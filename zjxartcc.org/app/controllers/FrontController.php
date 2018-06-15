@@ -174,7 +174,7 @@ class FrontController extends BaseController {
 
         Mail::send('emails.newmember', ['user' => $User], function($message) use ($User)
         {
-            $message->to($User->email)->subject('Welcome to ZJX');
+            $message->to($User->email)->subject('Welcome to ZAU');
         });
     }
 
