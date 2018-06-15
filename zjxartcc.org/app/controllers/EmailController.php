@@ -6,17 +6,17 @@ class EmailController extends \BaseController {
 	{
         if(Auth::user()->hasRole('ATM') || Auth::user()->hasRole('DATM') || Auth::user()->hasRole('TA') || Auth::user()->hasRole('EC') || Auth::user()->hasRole('FE') || Auth::user()->hasRole('WM')) {
             if (Auth::user()->hasRole('ATM')) {
-                $email = 'atm@zjxartcc.org';
+                $email = 'atm@zauartcc.org';
             } else if (Auth::user()->hasRole('DATM')) {
-                $email = 'datm@zjxartcc.org';
+                $email = 'datm@zauartcc.org';
             } else if (Auth::user()->hasRole('TA')) {
-                $email = 'ta@zjxartcc.org';
+                $email = 'ta@zauartcc.org';
             } else if (Auth::user()->hasRole('EC')) {
-                $email = 'ec@zjxartcc.org';
+                $email = 'ec@zauartcc.org';
             } else if (Auth::user()->hasRole('FE')) {
-                $email = 'fe@zjxartcc.org';
+                $email = 'fe@zauartcc.org';
             } else if (Auth::user()->hasRole('WM')) {
-                $email = 'webmaster@zjxartcc.org';
+                $email = 'webmaster@zauartcc.org';
             }
         } else {
             return Redirect::action('FrontController@showWelcome')->withMessage('Unauthorized!');
