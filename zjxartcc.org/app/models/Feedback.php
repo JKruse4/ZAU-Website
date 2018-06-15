@@ -3,23 +3,21 @@
 class Feedback extends Eloquent {
 
     public static $Positions = [
-     'JAX_CTR' => 'Enroute (Jacksonville Center)',
+     'CHI_CTR' => 'Enroute (Chicago Center)',
      'APP' => '-------- APPROACH/DEPARTURE --------',
-     'CAE_APP' => '(CAE) Columbia Approach/Departure', 
-     'CHS_APP' => '(CHS) Charleston Approach/Departure', 
-     'DAB_APP' => '(DAB) Daytona Beach Approach/Departure',
-     'FLO_APP' => '(FLO) Florence Approach/Departure',
-     'JAX_APP' => '(JAX) Jacksonville Approach/Departure',
-     'MCO_APP' => '(MCO) Orlando Approach.Departure',
-     'MYR_APP' => '(MYR) Myrtle Beach Approach/Departure',
-     'NBC_APP' => '(NBC) Beaufort Approach/Departure', 
-     'OZR_APP' => '(OZR) Cairns Approach/Departure', 
-     'PAM_APP' => '(PAM) Tyndall Approach/Departure',
-     'PNS_APP' => '(PNS) Pensacola Approach/Departure',
-     'SAV_APP' => '(SAV) Savannah Approach/Departure',
-     'TLH_APP' => '(TLH) Tallahassee Approach/Departure',
-     'VLD_APP' => '(VLD) Valdosta Approach/Departure',
-     'VPS_APP' => '(VPS) Eglin Approach/Departure',
+     'ALO_APP' => '(ALO) Waterloo Approach/Departure', 
+     'AZO_APP' => '(AZO) Kalamazoo Approach/Departure', 
+     'CID_APP' => '(CID) Cedar Rapids Approach/Departure',
+     'CMI_APP' => '(CMI) Champaign Approach/Departure',
+     'FWA_APP' => '(FWA) Fort Wayne Approach/Departure',
+     'GRR_APP' => '(GRR) Grand Rapids Approach.Departure',
+     'MKE_APP' => '(MKE) Milwaukee Approach/Departure',
+     'MKG_APP' => '(MKG) Muskegon Approach/Departure', 
+     'MLI_APP' => '(MLI) Quad City Approach/Departure', 
+     'MSN_APP' => '(MSN) Madison Approach/Departure',
+     'PIA_APP' => '(PIA) Peoria Approach/Departure',
+     'RFD_APP' => '(RFD) Rockford Approach/Departure',
+     'SBN_APP' => '(SBN) South Bend Approach/Departure',
      'TWR' => '-------------- TOWER --------------',
      'CAE_TWR' => '(CAE) Columbia Tower', 
      'CHS_TWR' => '(CHS) Charleston Tower', 
@@ -105,18 +103,18 @@ class Feedback extends Eloquent {
     public function sendPilotEmail()
     {
         return Mail::send('emails.feedbackpilot', ['feedback' => $this], function($message){
-            $message->from('no-reply@zjxartcc.org', 'ZJX No-Reply');
+            $message->from('atm@zauartcc.org', 'ZAU ATM');
             $message->to($this->pilot_email);
-            $message->subject('ZJX - Feedback Response');
+            $message->subject('ZAU - Feedback Response');
         });
     }
 
     public function sendControllerEmail()
     {
         return Mail::send('emails.feedbackcontroller', ['feedback' => $this], function($message){
-            $message->from('no-reply@zjxartcc.org', 'ZJX No-Reply');
+            $message->from('atm@zauartcc.org', 'ZAU ATM');
             $message->to($this->controller->email);
-            $message->subject('ZJX - New Feedback');
+            $message->subject('ZAU - New Feedback');
         });
     }
 
