@@ -117,15 +117,7 @@
 		<div class="divider-1"></div>
 		@endif
 	<div class="row">
-		<div class="col-lg-6">
-			<h2><i class="fa fa-newspaper-o"></i> News</h2>
-			@forelse($news as $n)
-			<h5>{{$n->poster_time}}<div style="padding-left: 10%; display: inline;"><a href="http://forum.zjxartcc.org/index.php?topic={{$n->id_topic}}.0">{{$n->subject}}</a></div></h5>
-			@empty
-			<center><h5><i>No News Announcements to display</i></h5></center>
-			@endforelse
-		</div>
-		<div class="col-lg-6">
+		<div class="col">
 			<h2><i class="fa fa-calendar"></i> Events</h2>
 			@forelse ($events as $e)
 				@if($e->banner_link == '')
