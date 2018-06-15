@@ -68,7 +68,7 @@ class AdminController extends BaseController {
 
         Mail::send('emails.newmember', ['user' => $user], function($message) use ($user)
         {
-            $message->to($user->email)->subject('Welcome to ZJX');
+            $message->to($user->email)->subject('Welcome to ZAU');
         });
 
         ActivityLog::create(['note' => "{$id} marked as a controller", 'user_id' => Auth::id(), 'log_state' => 2, 'log_type' => 9]);
@@ -140,7 +140,7 @@ class AdminController extends BaseController {
         
             return Redirect::to('/')->witherrors(['message', 'message to be sent', 'Visiting Application received and is pending review from the ATM and DATM. 
                                                        Please make sure you get either your ATM, DATM or Regional Director to send 
-                                                       a reference to visit@zjxartcc.org else your application will not be proocessed!']);
+                                                       a reference to datm@zauartcc.org else your application will not be proocessed!']);
         }
     }
 
