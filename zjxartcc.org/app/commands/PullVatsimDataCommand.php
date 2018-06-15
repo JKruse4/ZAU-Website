@@ -25,17 +25,17 @@ class PullVatsimDataCommand extends Command {
 
 	protected $facilities = [
 		/* BRAVO */
-		'MCO',
+		'ORD',
 		/* CHARLIE */
-		'SFB','NPA','NSE','NDZ','PNS','DAB','JAX','SAV','CHS',
-		'MYR','CAE','TLH','PAM','AAF','FLO',
+		'MDW','FWA','GRR','SBN','MKE','MSN','CID','MLI','PIA',
+		'RFD', 'CMI',
 		/* DELTA */
 		'ISM','LEE','OCF','ORL','OMN','EVB','COF','MLB','TIX',
 		'SGJ','CRG','NRB','NIP','VQQ','GNV','HXD','NBC','GRE',
 		'SVN','VLD','CTY','ECP','PFN','DHN','OZR','VPS','EGI',
 		'HRT',
 		/* OBSERVER */
-		'ZJX'
+		'ZAU'
 	];
 
 	/**
