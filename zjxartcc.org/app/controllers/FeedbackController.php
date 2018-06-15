@@ -63,7 +63,7 @@ class FeedbackController extends \BaseController {
 			]);
 
 			Mail::send('emails.pendingfeedback', ['request' => $request], function($message){
-	            $message->from('no-reply@zjxartcc.org', 'ZJX No-Reply');
+	            $message->from('atm@zauartcc.org', 'ZAU ATM');
 	            $message->to('snrstaff@zjxartcc.org');
 	            $message->subject('ZJX - New Feedback');
         	});
