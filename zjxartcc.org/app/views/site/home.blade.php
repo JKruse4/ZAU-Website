@@ -11,7 +11,7 @@
 		<div class="about-us-one">
 			<div class="row">
 				<div class="col-sm-9">
-					<h2>Virtual Jacksonville ARTCC</h2>
+					<h2>Virtual Chicago ARTCC</h2>
 					<p>Welcome to the Jacksonville ARTCC website. This website is for a group of online hobbyists who
 						partake in simulated flying and air traffic control on the VATSIM network. The Jacksonville ARTCC
 						owns a large chunk of airspace spanning from the Pensacola Naval Air Station complex, to Jacksonville
