@@ -34,14 +34,14 @@ class Visit extends Eloquent {
     public function sendVReqDeclineEmail() {
         return Mail::send('emails.visitdeny', ['session' => $this], function($message){
             $message->to($this->email);
-            $message->subject('ZJX - Visiting Application Denied');
+            $message->subject('ZAU - Visiting Application Denied');
         });
     }
 
     public function sendVReqUpdateEmail() {
         return Mail::send('emails.2weekvisitr', ['session' => $this], function($message){
             $message->to($this->email);
-            $message->subject('ZJX - Visiting Application Update');
+            $message->subject('ZAU - Visiting Application Update');
         });
     }
 
