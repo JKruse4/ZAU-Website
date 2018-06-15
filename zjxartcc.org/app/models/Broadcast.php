@@ -16,9 +16,9 @@ class Broadcast extends Eloquent {
     {
     	$subject = $this->subject;
         return Mail::send('emails.broadcast', ['broadcast' => $this], function($message) use ($u, $subject) {
-			$message->from('no-reply@zjxartcc.org', 'ZJX No-Reply');
+			$message->from('atm@zauartcc.org', 'ZAU ATM');
 			$message->to($u->email);
-			$message->subject("ZJX - {$subject}");
+			$message->subject("ZAU - {$subject}");
 		});
     }
 
