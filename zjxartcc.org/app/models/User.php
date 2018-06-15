@@ -296,7 +296,7 @@ class User extends Eloquent implements UserInterface {
     public function sendVReqDeclineEmail() {
         return Mail::send('emails.visitdeny', ['session' => $this], function($message){
             $message->to($this->visitr->email);
-            $message->subject('ZAU - Visiting Application Desied');
+            $message->subject('ZAU - Visiting Application Denied');
         });
     }
 
