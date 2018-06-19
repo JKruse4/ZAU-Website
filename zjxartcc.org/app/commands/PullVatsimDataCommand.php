@@ -30,10 +30,8 @@ class PullVatsimDataCommand extends Command {
 		'MDW','FWA','GRR','SBN','MKE','MSN','CID','MLI','PIA',
 		'RFD', 'CMI',
 		/* DELTA */
-		'ISM','LEE','OCF','ORL','OMN','EVB','COF','MLB','TIX',
-		'SGJ','CRG','NRB','NIP','VQQ','GNV','HXD','NBC','GRE',
-		'SVN','VLD','CTY','ECP','PFN','DHN','OZR','VPS','EGI',
-		'HRT',
+		'ARR','AZO','BTL','DPA','ENW','UGN','GYY','OSH','ALO',
+		'JVL', 'GUS', 'LAF',
 		/* OBSERVER */
 		'ZAU'
 	];
