@@ -18,7 +18,7 @@ class PullPilotsDataCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Pulls down vatsim pilot data for airports within the ZJX ARTCC airspace.';
+	protected $description = 'Pulls down vatsim pilot data for airports within the ZAU ARTCC airspace.';
 
 	protected $statusUrl = "http://status.vatsim.net/status.txt";
 
