@@ -25,14 +25,7 @@ class PullWeatherCommand extends Command {
     protected $source = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2&mostRecentForEachStation=true&stationString=%s";
 
     protected $defaultAirports = [
-        'KAAF', 'KABY', 'KAIK', 'KAMG', 'KAYS', 'KAZE', 'KBBP', 'KBGE', 'KBIJ', 'KBNL', 'KBOW', 'KBQK', 'KCAE', 'KCDN',
-        'KCEW', 'KCHS', 'KCKF', 'KCOF', 'KCOI', 'KCPC', 'KCRE', 'KCRG', 'KCTY', 'KCUB', 'KCWV', 'KCXU', 'KDAB', 'KDED',
-        'KDHN', 'KDLC', 'KDQH', 'KDTS', 'KDYB', 'KECP', 'KEDN', 'KEGI', 'KEVB', 'KEZM', 'KFDW', 'KFLO', 'KGGE', 'KGIF',
-        'KGNV', 'KHEG', 'KHOE', 'KHRT', 'KHVS', 'KHXD', 'KHYW', 'KISM', 'KJAX', 'KJES', 'KJKA', 'KJYL', 'KJZI', 'KLCQ',
-        'KLEE', 'KLHW', 'KLRO', 'KMAI', 'KMCO', 'KMHP', 'KMLB', 'KMMT', 'KMNI', 'KMUL', 'KMYR', 'KNBC', 'KNBJ', 'KNDZ',
-        'KNEN', 'KNFJ', 'KNIP', 'KNKL', 'KNPA', 'KNRB', 'KNSE', 'KNZX', 'KOCF', 'KOGB', 'KOMN', 'KORL', 'KOZR', 'KPAM',
-        'KPFN', 'KPNS', 'KPYG', 'KRBW', 'KRVJ', 'KSAV', 'KSFB', 'KSGJ', 'KSMS', 'KSSC', 'KSSI', 'KSVN', 'KTBR', 'KTIX',
-        'KTLH', 'KTMA', 'KTTS', 'KTVI', 'KUDG', 'KVAD', 'KVDI', 'KVLD', 'KVPS', 'KVQQ', 'KFIN', 'KXMR', 'KXNO',
+        'KORD', 'KMDW', 'KGRR', 'KSBN', 'KMKE', 'KMSN', 'KCID', 'KMLI', 'KPIA', 'KRFD', 'KCMI', 'KARR', 'KAZO', 'KBTL', 'KDPA', 'KENW', 'KUGN', 'KGYY', 'KOSH', 'KALO', 'KJVL', 'KGUS', 'KLAF', 
     ];
 
     /**
