@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => '',
-			'username'  => '',
-			'password'  => '',
+			'database'  => 'zauartcc_new',
+			'username'  => 'zauartcc_new',
+			'password'  => 'test123',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
