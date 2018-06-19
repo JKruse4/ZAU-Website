@@ -9,7 +9,7 @@ class AdminController extends BaseController {
         ActivityLog::create(['note' => "{$id} marked as LOA", 'user_id' => Auth::id(), 'log_state' => 2, 'log_type' => 9]);
         $user->save();
 
-        return Redirect::to('/admin/roster')->with('message', 'User Updated!');
+        return Redirect::to('/admin/roster')->withErrors(['message', 'User Updated!')];
     }
 
     public function deploy()
