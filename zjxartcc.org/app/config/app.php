@@ -25,7 +25,7 @@ return array(
 	|
 	*/
 
-	'url' => 'https://www.zjxartcc.org',
+	'url' => 'https://www.zauartcc.org',
 
 	'documentsPath' => __DIR__.'/../../public/files/',
 
