@@ -12,12 +12,10 @@
 			<div class="row">
 				<div class="col-sm-9">
 					<h2>Virtual Chicago ARTCC</h2>
-					<p>Welcome to the Jacksonville ARTCC website. This website is for a group of online hobbyists who
-						partake in simulated flying and air traffic control on the VATSIM network. The Jacksonville ARTCC
-						owns a large chunk of airspace spanning from the Pensacola Naval Air Station complex, to Jacksonville
-						International airport; Charleston Air Force Base/International Airport, down to Orlando International
-						airport. The procedures we use mirror, to an extent, those utilized by real world air traffic control.
-						<strong>At no time, however, should a procedure, chart, or other information contained on this website be used
+					<p>Welcome to the Chicago ARTCC website. Chicago ARTCC provides ATC Services for Chicago O'Hare, the world's 2nd busiest 
+					airport and features a Class Bravo airport, Chicago O'Hare (KORD) as well as several Class Charlies and is a short hop away
+					way from popular destinations like Saint Louis, Minneapolis, New York and Washington D.C. Come fly with us, and enjoy the 
+					challenges or come control with us and join our training program! <strong>At no time, however, should a procedure, chart, or other information contained on this website be used
 						for real world navigation.</strong>
 					</p>
 				</div>
