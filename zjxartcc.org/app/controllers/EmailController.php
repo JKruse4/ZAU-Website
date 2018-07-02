@@ -21,7 +21,7 @@ class EmailController extends \BaseController {
         } else {
             return Redirect::action('FrontController@showWelcome')->withMessage('Unauthorized!');
         }
-		return View::make('admin.email')->with('email', $email);
+		return View::make('admin.email')->withErrors('email', $email);
 	}
 
 	public function setPassword()
@@ -34,11 +34,11 @@ class EmailController extends \BaseController {
             $mail->password = $password;
             $mail->save();
 
-            return Redirect::action('EmailController@index')->with('message', 'Email Password Successfully Updated!');
+            return Redirect::action('EmailController@index')->withErrors('message', 'Email Password Successfully Updated!');
         } 
         else 
         {
-            return Redirect::action('EmailController@index')->with('message', 'Passwords do not match!');
+            return Redirect::action('EmailController@index')->withErrors('message', 'Passwords do not match!');
         }
 	}
 }
