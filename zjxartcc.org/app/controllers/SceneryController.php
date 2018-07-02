@@ -11,7 +11,7 @@ class SceneryController extends \BaseController {
 	{
 		$fsx = Scenery::where('type', '1')->get();
 		$xpl = Scenery::where('type', '2')->get();
-		return View::make('admin.scenery.index')->with('fsx', $fsx)->with('xpl', $xpl);
+		return View::make('admin.scenery.index')->withErrors(['fsx', $fsx])->withErrors(['xpl', $xpl]);
 	}
 
 
@@ -57,7 +57,7 @@ class SceneryController extends \BaseController {
 				'link'=>Input::get('link')
 			]);
 		
-			return Redirect::route('admin.scenery.index')->with('message', 'Scenery successfully added!');
+			return Redirect::route('admin.scenery.index')->with(['message', 'Scenery successfully added!']);
 		}
 	}
 
@@ -83,7 +83,7 @@ class SceneryController extends \BaseController {
 	public function edit($id)
 	{
 		$scenery = Scenery::find($id);
-		return View::make('admin.scenery.edit')->with('scenery', $scenery);
+		return View::make('admin.scenery.edit')->withErrors(['scenery', $scenery]);
 	}
 
 
@@ -107,7 +107,7 @@ class SceneryController extends \BaseController {
         $scenery->link = Input::get('link');
         $scenery->save();
  
-        return Redirect::to('/admin/scenery')->with('message', 'Scenery Updated!');
+        return Redirect::to('/admin/scenery')->withErrors(['message', 'Scenery Updated!']);
 	}
 
 
