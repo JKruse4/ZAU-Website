@@ -12,7 +12,7 @@ class EventController extends \BaseController {
 	public function index()
 	{
 		$event = Events::orderBy('event_start', 'DESC')->get();
-		return View::make('admin.events.index')->with('event', $event);
+		return View::make('admin.events.index')->withErrors('event', $event);
 	}
 
 
@@ -115,7 +115,7 @@ class EventController extends \BaseController {
 			EventPosition::create(['event_id' => $events->id, 'name' => 'PNS_DEL', 'order_index' => 9]);
 		}
 		
-		return Redirect::route('admin.events.index')->with('message', 'Event Created!');
+		return Redirect::route('admin.events.index')->withErrors('message', 'Event Created!');
 	}
 
 
@@ -127,9 +127,9 @@ class EventController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$event = Events::with('positions')->find($id);
+		$event = Events::withErrors('positions', 'Positions updated')->find($id);
 		$pos_req = Position::where('eventid', '=', $id)->where('position_id', '!=', '0')->where('done', '0')->get();
-		return View::make('admin.events.show')->with('event', $event)->with('pos_req', $pos_req);
+		return View::make('admin.events.show')->withErrors('event', $event)->withErrors('pos_req', $pos_req);
 	}
 
 
@@ -142,7 +142,7 @@ class EventController extends \BaseController {
 	public function edit($id)
 	{
 		$event = Events::find($id);
-		return View::make('admin.events.edit')->with('event', $event);
+		return View::make('admin.events.edit')->withErrors('event', $event);
 	}
 
 
@@ -168,7 +168,7 @@ class EventController extends \BaseController {
 
 		ActivityLog::create(['note' => 'Updated Event: '.Input::get('title'), 'user_id' => Auth::id(), 'log_state' => 2, 'log_type' => 4]);
 
-		return Redirect::to('/admin/events')->with('message', 'Event Updated!');
+		return Redirect::to('/admin/events')->withErrors('message', 'Event Updated!');
 	}
 
 
@@ -181,7 +181,7 @@ class EventController extends \BaseController {
 	public function destroy($id)
 	{
 		Events::destroy($id);
-		return Redirect::to('/admin/events')->with('message', 'Event Archived');
+		return Redirect::to('/admin/events')->withErrors('message', 'Event Archived');
 	}
 
 	public function setEventHidden($id)
@@ -192,7 +192,7 @@ class EventController extends \BaseController {
 
 		ActivityLog::create(['note' => 'Hid Event: '.$event->title, 'user_id' => Auth::id(), 'log_state' => 2, 'log_type' => 4]);
 
-		return Redirect::to('/admin/events')->with('message', 'Event Status Changed!');
+		return Redirect::to('/admin/events')->withErrors('message', 'Event Status Changed!');
 	}
 
 	public function setEventActive($id)
@@ -203,7 +203,7 @@ class EventController extends \BaseController {
 
 		ActivityLog::create(['note' => 'Unhid Event: '.$event->title, 'user_id' => Auth::id(), 'log_state' => 2, 'log_type' => 4]);
 
-		return Redirect::to('/admin/events')->with('message', 'Event Status Changed!');
+		return Redirect::to('/admin/events')->withErrors('message', 'Event Status Changed!');
 	}
 
 
@@ -253,7 +253,7 @@ class EventController extends \BaseController {
 
 		Position::where('eventid', $position->event_id)->where('controller_id', $controller_id)->delete();
 
-		return Redirect::back()->with('message', 'Event Request Accepted');
+		return Redirect::back()->withErrors('message', 'Event Request Accepted');
 	}
 
 	public function requestPosition($event_id)
