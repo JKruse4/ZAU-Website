@@ -20,9 +20,9 @@ class RosterController extends \BaseController {
             return $user->status == 1;
         });
 
-        return View::make('admin.roster.index')->withErrors('homecontroller', $homecontroller)
-                                        ->withErrors('visitcontroller', $visitcontroller)
-                                        ->withErrors('formercontroller', $formercontroller);
+        return View::make('admin.roster.index')->withErrors(['homecontroller', $homecontroller])
+                                        ->withErrors(['visitcontroller', $visitcontroller])
+                                        ->withErrors(['formercontroller', $formercontroller]);
     }
 
     public function front_index()
@@ -37,7 +37,7 @@ class RosterController extends \BaseController {
             return $user->visitor;
         });
 
-        return View::make('site.roster')->withErrors('homecontroller', $homecontroller)->withErrors('visitcontroller', $visitcontroller);
+        return View::make('site.roster')->withErrors(]'homecontroller', $homecontroller])->withErrors(['visitcontroller', $visitcontroller]);
     }
 
 
