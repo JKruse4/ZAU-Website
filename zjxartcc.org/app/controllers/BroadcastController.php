@@ -10,7 +10,7 @@ class BroadcastController extends \BaseController {
 	public function index()
 	{
 		$broadcast = Broadcast::orderBy('created_at', 'DESC')->get();
-		return View::make('admin.broadcast.index')->with('broadcast', $broadcast);
+		return View::make('admin.broadcast.index')->withErrors('broadcast', $broadcast);
 	}
 
 
@@ -200,7 +200,7 @@ class BroadcastController extends \BaseController {
 			}
 		}
 
-		return Redirect::to('/admin/broadcast')->with('message', 'Broadcast Sent!');
+		return Redirect::to('/admin/broadcast')->withErrors('message', 'Broadcast Sent!');
 	}
 
 
