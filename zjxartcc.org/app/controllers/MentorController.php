@@ -7,13 +7,13 @@ class MentorController extends BaseController {
 	public function showRequests()
 	{
 		$sessions = MentorAvail::where('trainee_id', '!=', 0)->where('slot', '>', new Carbon('midnight today', 'America/New_York'))->orderBy('slot', 'ASC')->get();
-		return View::make('admin.mentors.sessions')->with('sessions', $sessions);
+		return View::make('admin.mentors.sessions')->withErrors('sessions', $sessions);
 	}
 
 	public function findStudents()
 	{
 		$user = User::where('status', '0')->orderBy('last_name', 'ASC')->get()->lists('backwards_name', 'id');
-		return View::make('admin.mentors.studentsearch')->with('user', $user);
+		return View::make('admin.mentors.studentsearch')->withErrors('user', $user);
 	}
 
 	public function findStudent()
@@ -27,19 +27,19 @@ class MentorController extends BaseController {
 		$user = User::find($id);
 		$note = TrainingNote::where('controller_id', '=', $id)->orderBy('date', 'DESC')->orderBy('session_begin', 'DESC')->get();
 		$exam = Exam::where('controller_id', '=', $id)->orderBy('updated_at', 'ASC')->get();
-		return View::make('admin.mentors.student')->with('user', $user)->with('note', $note)->with('exam', $exam);
+		return View::make('admin.mentors.student')->withErrors('user', $user)->withErrors('note', $note)->withErrors('exam', $exam);
 	}
 
 	public function showNote($id)
 	{
 		$note = TrainingNote::find($id);
-		return View::make('admin.mentors.note')->with('note', $note);
+		return View::make('admin.mentors.note')->withErrors('note', $note);
 	}
 
 	public function addNote()
 	{
 		$user = User::where('status', 0)->orderBy('last_name', 'ASC')->get()->lists('backwards_name', 'id');
-		return View::make('admin.mentors.addnote')->with('user', $user);
+		return View::make('admin.mentors.addnote')->withErrors('user', $user);
 	}
 
 	public function saveNote()
@@ -60,13 +60,13 @@ class MentorController extends BaseController {
 
 		ActivityLog::create(['note' => 'Added Training Note for: '.Input::get('controller_id') .' on '. Input::get('position'), 'user_id' => Auth::id(), 'log_state' => 1, 'log_type' => 8]);
 		
-		return Redirect::to('/admin/mentor/addnote')->with('message', 'Training Note Created!');
+		return Redirect::to('/admin/mentor/addnote')->withErrors('message', 'Training Note Created!');
 	}
 
 	public function recOTS()
 	{
 		$user = User::where('status', '0')->orderBy('last_name', 'ASC')->get()->lists('full_name', 'id');
-		return View::make('admin.mentors.recots')->with('user', $user);
+		return View::make('admin.mentors.recots')->withErrors('user', $user);
 	}
 
 	public function saveOTSReq()
@@ -79,7 +79,7 @@ class MentorController extends BaseController {
 
 		ActivityLog::create(['note' => Input::get('controller_id') .' suggested for OTS on '. Input::get('position'), 'user_id' => Auth::id(), 'log_state' => 1, 'log_type' => 8]);
 		
-		return Redirect::to('/admin/mentor/otsrec')->with('message', 'Controller submitted for OTS/Validation!');
+		return Redirect::to('/admin/mentor/otsrec')->withErrors('message', 'Controller submitted for OTS/Validation!');
 	}
 
 	public function cancelSession($id)
@@ -92,7 +92,7 @@ class MentorController extends BaseController {
 
 		ActivityLog::create(['note' => 'Cancelled Session: '.$request->slot, 'user_id' => Auth::id(), 'log_state' => 3, 'log_type' => 6]);
 
-		return Redirect::to('/admin/mentor/requests')->with('message', 'Session canceled. Student has been notified!');
+		return Redirect::to('/admin/mentor/requests')->withErrors('message', 'Session canceled. Student has been notified!');
 	}
 
 	public function showChecklists()
@@ -103,7 +103,7 @@ class MentorController extends BaseController {
 	public function showAvail()
 	{
 		$availability = MentorAvail::where('mentor_id', '=', Auth::id())->get();
-		return View::make('admin.mentors.mentoravail')->with('availability', $availability);
+		return View::make('admin.mentors.mentoravail')->withErrors('availability', $availability);
 	}
 
 	public function postAvail()
@@ -131,7 +131,7 @@ class MentorController extends BaseController {
 		MentorAvail::where('mentor_id', '=', $mentor_id)->whereIn('slot', $old_slots)->delete();
 		ActivityLog::create(['note' => 'Updated Availability', 'user_id' => Auth::id(), 'log_state' => 2, 'log_type' => 6]);
 
-		return Redirect::action('MentorController@showAvail')->with('message', 'Availability has been updated');
+		return Redirect::action('MentorController@showAvail')->withErrors('message', 'Availability has been updated');
 	}
 
 }
