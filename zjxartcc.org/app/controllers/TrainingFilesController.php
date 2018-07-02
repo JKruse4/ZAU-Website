@@ -12,7 +12,7 @@ class TrainingFilesController extends \BaseController {
 		$twr = TrainingFile::where('type', 'twr')->get();
 		$ac = TrainingFile::where('type', 'ac')->get();
 		$diag = TrainingFile::where('type', 'diag')->get();
-		return View::make('admin.mentors.docs.index')->with('twr', $twr)->with('ac', $ac)->with('diag', $diag);
+		return View::make('admin.mentors.docs.index')->withErrors(['twr', $twr])->withErrors(['ac', $ac])->withErrors(['diag', $diag]);
 	}
 
 
@@ -37,7 +37,7 @@ class TrainingFilesController extends \BaseController {
 		$file = Input::file('file');
 
 		if (!$file->isValid()) {
-			return Redirect::action('TrainingFilesController@create')->with('message', 'File is invalid!');
+			return Redirect::action('TrainingFilesController@create')->withErrors(['message', 'File is invalid!']);
 		}
 
 		$file->move(Config::get('app.documentsPath'), $file->getClientOriginalName());
@@ -48,7 +48,7 @@ class TrainingFilesController extends \BaseController {
 		$document->url = $relativePath;
 		$document->save();
 
-		return Redirect::to('/admin/mentor/files')->with('message', 'Document successfully created!');
+		return Redirect::to('/admin/mentor/files')->withErrors(['message', 'Document successfully created!']);
 	}
 
 
@@ -61,7 +61,7 @@ class TrainingFilesController extends \BaseController {
 	public function edit($id)
 	{
 		$document = TrainingFile::find($id);
-		return View::make('admin.mentors.docs.edit')->with('document', $document);
+		return View::make('admin.mentors.docs.edit')->withErrors(['document', $document]);
 	}
 
 
