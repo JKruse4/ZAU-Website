@@ -10,13 +10,13 @@ class CommsController extends \BaseController {
 	public function index()
 	{
 		$comms = Comms::orderBy('facility', 'ASC')->orderBy('type', 'DESC')->get();
-		return View::make('admin.comms.index')->with('comms', $comms);
+		return View::make('admin.comms.index')->withErrors('comms', $comms);
 	}
 
 	public function ATISindex()
 	{
 		$atis = ATIS::orderBy('facility', 'ASC')->get();
-		return View::make('admin.comms.atis.index')->with('atis', $atis);
+		return View::make('admin.comms.atis.index')->withErrors('atis', $atis);
 	}
 
 
@@ -58,7 +58,7 @@ class CommsController extends \BaseController {
 			$comms->fill(Input::all());
 			$comms->save();
 
-			return Redirect::action('CommsController@index')->with('message', 'Position successfully created!');
+			return Redirect::action('CommsController@index')->withErrors('message', 'Position successfully created!');
 		}
 	}
 
@@ -83,7 +83,7 @@ class CommsController extends \BaseController {
 			$comms->fill(Input::all());
 			$comms->save();
 
-			return Redirect::action('CommsController@ATISndex')->with('message', 'ATIS successfully created!');
+			return Redirect::action('CommsController@ATISndex')->withErrors('message', 'ATIS successfully created!');
 		}
 	}
 
@@ -124,7 +124,7 @@ class CommsController extends \BaseController {
 		$comms->fill(Input::all());
 		$comms->save();
 
-		return Redirect::action('CommsController@index')->with('message', 'Position successfully edited!');
+		return Redirect::action('CommsController@index')->withErrors('message', 'Position successfully edited!');
 	}
 
 	public function updateATIS($id)
@@ -133,7 +133,7 @@ class CommsController extends \BaseController {
 		$comms->fill(Input::all());
 		$comms->save();
 
-		return Redirect::action('CommsController@ATISindex')->with('message', 'ATIS successfully edited!');
+		return Redirect::action('CommsController@ATISindex')->withErrors('message', 'ATIS successfully edited!');
 	}
 
 
