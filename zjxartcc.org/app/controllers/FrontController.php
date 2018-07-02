@@ -11,9 +11,9 @@ class FrontController extends BaseController {
         $currentTop5 = ControllerLog::top5Controllers(date('Y-n'));
         $announcements = Announcement::where('active', '1')->get();
 
-        return View::make('site.home')->withErrors('events', $events)->withErrors('news', $news)->withErrors('online', $online)
-                                      ->withErrors('lastTop5', $lastTop5)->withErrors('currentTop5', $currentTop5)
-                                      ->withErrors('announcements', $announcements);
+        return View::make('site.home')->withErrors(['events', $events])->withErrors(['news', $news])->withErrors(['online', $online])
+                                      ->withErrors(['lastTop5', $lastTop5])->withErrors(['currentTop5', $currentTop5])
+                                      ->withErrors(['announcements', $announcements]);
     }
 
     public function loadHomeTables()
@@ -23,8 +23,8 @@ class FrontController extends BaseController {
         $atcupdate = Settings::where('key', 'ATCUPDATE')->pluck('value');
         $wxupdate = Settings::where('key', 'WXUPDATE')->pluck('value');
 
-        return View::make('site.hometables')->withErrors('weather', $weather)->withErrors('online', $online)
-                                            ->withErrors('wxupdate', $wxupdate)->withErrors('atcupdate', $atcupdate)->render();
+        return View::make('site.hometables')->withErrors(['weather', $weather])->withErrors(['online', $online])
+                                            ->withErrors(['wxupdate', $wxupdate])->withErrors(['atcupdate', $atcupdate])->render();
     }
 
     public function showTest()
@@ -35,20 +35,20 @@ class FrontController extends BaseController {
     public function showStaff()
     {
         $Roles = Role::withErrors('users')->get();
-        return View::make('site.staff')->withErrors('Roles', $Roles);
+        return View::make('site.staff')->withErrors(['Roles', $Roles]);
     }
 
     public function showWeather()
     {
         $weather = Weather::orderBy('id', 'ASC')->get();
-        return View::make('site.weather')->withErrors('weather', $weather);
+        return View::make('site.weather')->withErrors(['weather', $weather]);
     }
 
     public function showScenery()
     {
         $fsx = Scenery::where('type', '1')->get();
         $xpl = Scenery::where('type', '2')->get();
-        return View::make('site.scenery')->withErrors('fsx', $fsx)->withErrors('xpl', $xpl);
+        return View::make('site.scenery')->withErrors(['fsx', $fsx])->withErrors(['xpl', $xpl]);
     }
 
     public function showDocuments()
@@ -87,8 +87,8 @@ class FrontController extends BaseController {
         $log = ControllerLog::where('cid', '=', $id)->limit(8)->orderBy('id', 'DESC')->get();
         $stats = ControllerLog::getControllerStats($id);
 
-        return View::make('site.profile')->withErrors('user', $user)->withErrors('feedback', $feedback)
-                                         ->withErrors('log', $log)->withErrors('stats', $stats);
+        return View::make('site.profile')->withErrors(['user', $user])->withErrors(['feedback', $feedback])
+                                         ->withErrors(['log', $log])->withErrors(['stats', $stats]);
     }
 
     public function showEvents($id)
@@ -102,8 +102,8 @@ class FrontController extends BaseController {
 
         $pos_req = Position::where('eventid', '=', $id)->where('position_id', '!=', '0')->where('done', '0')->get();
 
-        return View::make('site.events')->withErrors('event', $event)->withErrors('available_positions', $available_positions)
-                                        ->withErrors('userreq', $userreq)->withErrors('userpos', $userpos)->withErrors('pos_req', $pos_req);
+        return View::make('site.events')->withErrors(['event', $event])->withErrors(['available_positions', $available_positions])
+                                        ->withErrors(['userreq', $userreq])->withErrors(['userpos', $userpos])->withErrors(['pos_req', $pos_req]);
     }
 
     public function showStats($year = null, $month = null)
@@ -122,10 +122,10 @@ class FrontController extends BaseController {
         $visit = User::where('visitor', '1')->where('loa', '0')->where('status', '0')->orderBy('last_name', 'ASC')->get();
         $visitloa = User::where('visitor', '1')->where('loa', '1')->where('status', '0')->orderBy('last_name', 'ASC')->get();
         
-        return View::make('site.stats')->withErrors('all_stats', $all_stats)->withErrors('year', $year)
-                                        ->withErrors('month', $month)->withErrors('stats', $stats)
-                                        ->withErrors('home', $home)->withErrors('homeloa', $homeloa)
-                                       ->withErrors('visit', $visit)->withErrors('visitloa', $visitloa);
+        return View::make('site.stats')->withErrors(['all_stats', $all_stats])->withErrors(['year', $year])
+                                        ->withErrors(['month', $month])->withErrors(['stats', $stats])
+                                        ->withErrors(['home', $home])->withErrors(['homeloa', $homeloa])
+                                       ->withErrors(['visit', $visit])->withErrors(['visitloa', $visitloa]);
     }
 
 
@@ -138,7 +138,7 @@ class FrontController extends BaseController {
     {
         $comms = Comms::orderBy('facility', 'ASC')->orderBy('type', 'DESC')->get();
         $atis = ATIS::orderBy('facility', 'ASC')->get();
-        return View::make('site.comms')->withErrors('comms', $comms)->withErrors('atis', $atis);
+        return View::make('site.comms')->withErrors(['comms', $comms])->withErrors(['atis', $atis]);
     }
     
     public function getAirport($id)
@@ -150,7 +150,7 @@ class FrontController extends BaseController {
         $departure_flights = Pilot::where('dep_apt', $id)->get();
         $arrival_flights = Pilot::where('arr_apt', $id)->get();
 
-        return View::make('site.airports.show')->withErrors('airport', $airport)->withErrors('weather', $weather)->withErrors('arrival_flights', $arrival_flights)->withErrors('departure_flights', $departure_flights);
+        return View::make('site.airports.show')->withErrors(['airport', $airport])->withErrors(['weather', $weather])->withErrors(['arrival_flights', $arrival_flights)->withErrors('departure_flights', $departure_flights]);
     }
 
     public function showRunways()
@@ -159,7 +159,7 @@ class FrontController extends BaseController {
         $kchs = Weather::find('KCHS');
         $kjax = Weather::find('KJAX');
 
-        return View::make('site.runways')->withErrors('kmco', $kmco)->withErrors('kchs', $kchs)->withErrors('kjax', $kjax);
+        return View::make('site.runways')->withErrors(['kmco', $kmco])->withErrors(['kchs', $kchs])->withErrors(['kjax', $kjax]);
     }
 
     public function showATCast()
