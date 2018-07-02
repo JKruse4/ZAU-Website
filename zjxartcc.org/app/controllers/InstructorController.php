@@ -5,7 +5,7 @@ class InstructorController extends BaseController {
 	public function showOTSRec()
 	{
 		$ots = OTSRequest::where('complete', '0')->orderBy('created_at', 'ASC')->get();
-		return View::make('admin.instructors.otsrec')->with('ots', $ots);
+		return View::make('admin.instructors.otsrec')->withErrors('ots', $ots);
 	}
 
 	public function addOTSNote()
@@ -17,7 +17,7 @@ class InstructorController extends BaseController {
 	{
 		$user = User::where('status', '0')->orderBy('last_name', 'ASC')->get()->lists('full_name', 'id');
 		$exams = Exam::where('complete', '0')->get();
-		return View::make('admin.instructors.assignexam')->with('user', $user)->with('exams', $exams);
+		return View::make('admin.instructors.assignexam')->withErrors('user', $user)->withErrors('exams', $exams);
 	}
 
 	public function assignExam()
@@ -28,13 +28,13 @@ class InstructorController extends BaseController {
         	'exam_id'=>Input::get('exam_id')
 		]);
 
-		return Redirect::to('/admin/instructor/exams')->with('message', 'Exam Assigned Successfully!');
+		return Redirect::to('/admin/instructor/exams')->withErrors('message', 'Exam Assigned Successfully!');
 	}
 
 	public function destroyExam($id)
 	{
 		Exam::destroy($id);
-		return Redirect::to('/admin/instructor/exams')->with('message', 'Exam Unassigned');
+		return Redirect::to('/admin/instructor/exams')->withErrors('message', 'Exam Unassigned');
 	}
 
 	public function cancelOTS($id)
@@ -43,7 +43,7 @@ class InstructorController extends BaseController {
  		$ots->accepted = 0;
  		$ots->mentor_id = 0;
 		$ots->save();
-		return Redirect::to('/admin/instructor/otsrec')->with('message', 'OTS Canceled');
+		return Redirect::to('/admin/instructor/otsrec')->withErrors('message', 'OTS Canceled');
 	}
 
 	public function acceptOTS($id)
@@ -53,7 +53,7 @@ class InstructorController extends BaseController {
  		$ots->mentor_id = Auth::id();
 		$ots->save();
  
-        return Redirect::to('/admin/instructor/otsrec')->with('message', 'OTS accepted!');
+        return Redirect::to('/admin/instructor/otsrec')->withErrors('message', 'OTS accepted!');
 	}
 
 	public function passOTS($id)
@@ -63,7 +63,7 @@ class InstructorController extends BaseController {
  		$ots->pass = 2;
         $ots->save();
  
-        return Redirect::to('/admin/instructor/otsrec')->with('message', 'Maked student passed OTS!');
+        return Redirect::to('/admin/instructor/otsrec')->withErrors('message', 'Maked student passed OTS!');
 	}
 
 	public function failOTS($id)
@@ -73,7 +73,7 @@ class InstructorController extends BaseController {
  		$ots->pass = 1;
         $ots->save();
  
-        return Redirect::to('/admin/instructor/otsrec')->with('message', 'Maked student failed OTS!');
+        return Redirect::to('/admin/instructor/otsrec')->withErrors('message', 'Maked student failed OTS!');
 	}
 
 }
