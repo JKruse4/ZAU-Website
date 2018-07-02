@@ -8,7 +8,7 @@ class TrainingController extends BaseController {
 		$id = Auth::id();
 		$time = Carbon::now('America/New_York');
 		$sessions = MentorAvail::with('mentor')->where('trainee_id', $id)->where('slot', '>', $time)->get();
-		return View::make('admin.training.index')->with('sessions', $sessions);
+		return View::make('admin.training.index')->withErrors(['sessions', $sessions]);
 	}
 
 	public function showMentAvail()
@@ -20,7 +20,7 @@ class TrainingController extends BaseController {
 			->where('slot', '>', Carbon::now(new DateTimeZone('America/New_York'))->addHours(0))
 			->get();
 
-		return View::make('admin.training.mentoravail')->with('availability', $availability);
+		return View::make('admin.training.mentoravail')->withErrors(['availability', $availability]);
 	}
 
 	public function saveSession()
@@ -29,7 +29,7 @@ class TrainingController extends BaseController {
 		$nSessions = MentorAvail::where('trainee_id', $id)->where('slot', '>', Carbon::now())->count();
 
 		if ($nSessions >= 5) {
-			return Redirect::action('TrainingController@showRequests')->with('message', 'A student is only allowed a maximum of 5 slots assigned at once.');
+			return Redirect::action('TrainingController@showRequests')->withErrors(['message', 'A student is only allowed a maximum of 5 slots assigned at once.']);
 		}
 
 		$position = Input::get('position');
@@ -59,7 +59,7 @@ class TrainingController extends BaseController {
 
 		ActivityLog::create(['note' => 'Cancelled Session: '.$session->slot, 'user_id' => Auth::id(), 'log_state' => 3, 'log_type' => 6]);
 
-		return Redirect::to('/training')->with('message', 'Training sessions canceled!');
+		return Redirect::to('/training')->with(['message', 'Training sessions canceled!']);
 	}
 
 	public function showNotes()
@@ -68,13 +68,13 @@ class TrainingController extends BaseController {
 		$user = User::find($id);
 		$notes = TrainingNote::where('controller_id', $id)->orderBy('created_at', 'ASC')->get();
 		$exam = Exam::where('controller_id', '=', $id)->orderBy('updated_at', 'ASC')->get();
-		return View::make('admin.training.notes')->with('notes', $notes)->with('user', $user)->with('exam', $exam);
+		return View::make('admin.training.notes')->withErrors(['notes', $notes])->withErrors(['user', $user])->withErrors(['exam', $exam]);
 	}
 
 	public function showNote($id)
 	{
 		$note = TrainingNote::find($id);
-		return View::make('admin.training.note')->with('note', $note);
+		return View::make('admin.training.note')->withErrors(['note', $note]);
 	}
 
 }
