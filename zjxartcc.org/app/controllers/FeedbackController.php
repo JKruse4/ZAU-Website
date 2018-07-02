@@ -9,8 +9,8 @@ class FeedbackController extends \BaseController {
 	 */
 	public function index()
 	{
-		$feedback = Feedback::with('controller')->where('status', '=', 1)->orWhere('status', 2)->orderBy('created_at', 'DESC')->get();
-		return View::make('site.feedback.index')->with('feedback', $feedback);
+		$feedback = Feedback::withErrors('controller')->where('status', '=', 1)->orWhere('status', 2)->orderBy('created_at', 'DESC')->get();
+		return View::make('site.feedback.index')->withErrors('feedback', $feedback);
 	}
 
 
@@ -22,7 +22,7 @@ class FeedbackController extends \BaseController {
 	public function create()
 	{
 		$members = User::orderBy('last_name', 'ASC')->where('status', 0)->get()->lists('backwards_name', 'id');
-		return View::make('site.feedback.create')->with('members', $members);
+		return View::make('site.feedback.create')->withErrors('members', $members);
 	}
 
 
@@ -68,7 +68,7 @@ class FeedbackController extends \BaseController {
 	            $message->subject('ZJX - New Feedback');
         	});
 		
-			return Redirect::route('feedback.index')->with('message', 'Feedback Submitted and is pending review!');
+			return Redirect::route('feedback.index')->withErrors('message', 'Feedback Submitted and is pending review!');
 		}
 
 		
@@ -84,7 +84,7 @@ class FeedbackController extends \BaseController {
 	public function show($id)
 	{
 		$f = Feedback::find($id);
-		return View::make('site.feedback.show')->with('f', $f);
+		return View::make('site.feedback.show')->withErrors('f', $f);
 	}
 
 
@@ -140,7 +140,7 @@ class FeedbackController extends \BaseController {
 
         ActivityLog::create(['note' => 'Approved Feedback: '.$feedback->id, 'user_id' => Auth::id(), 'log_state' => 2, 'log_type' => 5]);
  
-        return Redirect::to('/admin/feedback')->with('message', 'Feedback Updated!');
+        return Redirect::to('/admin/feedback')->withErrors('message', 'Feedback Updated!');
 	}
 
 	public function rejectFeedback($id)
@@ -151,25 +151,25 @@ class FeedbackController extends \BaseController {
 
         ActivityLog::create(['note' => 'Rejected Feedback: '.$feedback->id, 'user_id' => Auth::id(), 'log_state' => 2, 'log_type' => 5]);
  
-        return Redirect::to('/admin/feedback')->with('message', 'Feedback Updated!');
+        return Redirect::to('/admin/feedback')->withErrors('message', 'Feedback Updated!');
 	}
 
 	public function showFeedback()
 	{
 		$feedback = Feedback::where('status', '=', '0')->orderBy('created_at', 'DESC')->limit(10)->get();
-		return View::make('admin.feedback.index')->with('feedback', $feedback);
+		return View::make('admin.feedback.index')->withErrors('feedback', $feedback);
 	}
 
 	public function showFeedbackDetails($id)
 	{
 		$f = Feedback::find($id);
-		return View::make('admin.feedback.show')->with('f', $f);
+		return View::make('admin.feedback.show')->withErrors('f', $f);
 	}
 
 	public function showApproveFeedback($id)
 	{
 		$f = Feedback::find($id);
-		return View::make('admin.feedback.accept')->with('f', $f);
+		return View::make('admin.feedback.accept')->withErrors('f', $f);
 	}
 
 
