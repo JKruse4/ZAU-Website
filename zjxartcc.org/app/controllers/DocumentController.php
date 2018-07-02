@@ -48,7 +48,7 @@ class DocumentController extends \BaseController {
 		$file = Input::file('file');
 
 		if (!$file->isValid()) {
-			return Redirect::action('DocumentController@create')->with('message', 'File is invalid!');
+			return Redirect::action('DocumentController@create')->withErrors('message', 'File is invalid!');
 		}
 
 		$file->move(Config::get('app.documentsPath'), $file->getClientOriginalName());
@@ -61,7 +61,7 @@ class DocumentController extends \BaseController {
 
 		ActivityLog::create(['note' => 'Created Document: '.Input::get('name'), 'user_id' => Auth::id(), 'log_state' => 1, 'log_type' => 3]);
 
-		return Redirect::action('DocumentController@index')->with('message', 'Document successfully created!');
+		return Redirect::action('DocumentController@index')->withErrors('message', 'Document successfully created!');
 	}
 
 
@@ -74,7 +74,7 @@ class DocumentController extends \BaseController {
 	public function edit($id)
 	{
 		$Document = Document::find($id);
-		return View::make('admin.documents.edit')->with('Document', $Document);
+		return View::make('admin.documents.edit')->withErrors('Document', $Document);
 	}
 
 
