@@ -79,7 +79,7 @@ class AdminController extends BaseController {
         $forum_user->save();
 
 
-        return Redirect::to('/admin/roster')->withErrors('message', 'User Updated!');
+        return Redirect::to('/admin/roster')->withErrors(['message', 'User Updated!']);
     }
 
     public function setFormerController($id)
@@ -100,7 +100,7 @@ class AdminController extends BaseController {
             $message->to($user->email)->subject('Removed From ZAU Roster');
         });
 
-        return Redirect::to('/admin/roster')->withErrors('message', 'Controller removed from active roster!');
+        return Redirect::to('/admin/roster')->withErrors(['message', 'Controller removed from active roster!']);
     }
 
     public function saveVisit()
@@ -148,7 +148,7 @@ class AdminController extends BaseController {
     public function showVisitRequests()
     {   
         $visit = Visit::where('accepted', '0')->get();
-        return View::make('admin.roster.visit')->withErrors('visit', $visit);     
+        return View::make('admin.roster.visit')->withErrors(['visit', $visit]);     
     }
 
     public function updateVRequest($id)
@@ -160,7 +160,7 @@ class AdminController extends BaseController {
 
         ActivityLog::create(['note' => "Sent Visiting Request {$id} 2 week update email", 'user_id' => Auth::id(), 'log_state' => 2, 'log_type' => 10]);
 
-        return Redirect::to('admin/visitreq')->withErrors('message', '2 week notification sent!');
+        return Redirect::to('admin/visitreq')->withErrors(['message', '2 week notification sent!']);
     }
 
     public function acceptVRequest($id)
@@ -183,7 +183,7 @@ class AdminController extends BaseController {
 
         ActivityLog::create(['note' => " Visiting Request {$id} denied", 'user_id' => Auth::id(), 'log_state' => 2, 'log_type' => 10]);
         
-        return Redirect::to('/admin/visitreq')->withErrors('message', 'Visiting Request Denied, email sent!');
+        return Redirect::to('/admin/visitreq')->withErrors(['message', 'Visiting Request Denied, email sent!']);
 
     }
 
@@ -195,7 +195,7 @@ class AdminController extends BaseController {
     public function showAnnouncements()
     {
         $a = Announcement::find(1);
-        return View::make('admin.announcements.index')->withErrors('a', $a);
+        return View::make('admin.announcements.index')->withErrors(['a', $a]);
     }
 
     public function updateAnnouncements()
@@ -212,20 +212,20 @@ class AdminController extends BaseController {
 
         ActivityLog::create(['note' => "Front Page Announcement updated", 'user_id' => Auth::id(), 'log_state' => 2, 'log_type' => 1]);
 
-        return Redirect::to('/admin/announcements')->withErrors('message', 'Message Updated!');
+        return Redirect::to('/admin/announcements')->withErrors(['message', 'Message Updated!']);
     }
 
     public function showUserLog()
     {
         $user = User::orderBy('last_name', 'ASC')->get()->lists('full_name', 'id');
-        return View::make('admin.logs')->withErrors('user', $user);
+        return View::make('admin.logs')->withErrors(['user', $user]);
     }
 
     public function log($id)
     {
         $user = User::where('id', '=', $id)->first();
         $log = ControllerLog::where('cid', '=', $id)->orderBy('id', 'DESC')->get();
-        return View::make('admin.log')->withErrors('log', $log)->withErrors('user', $user);
+        return View::make('admin.log')->withErrors(['log', $log])->withErrors(['user', $user]);
     }
 
     public function showActivityLog()
@@ -233,7 +233,7 @@ class AdminController extends BaseController {
         $activity = ActivityLog::orderBy('created_at', 'DESC')->paginate(25);
         $user = User::where('status', '0')->orderBy('last_name', 'ASC')->get()->lists('backwards_name', 'id');
         $users = [0 => 'Please Select'] + $user;
-        return View::make('admin.activitylog')->withErrors('activity', $activity)->withErrors('users', $users);
+        return View::make('admin.activitylog')->withErrors(['activity', $activity])->withErrors(['users', $users]);
     }
 
     public function filterActivityLog($id)
@@ -245,6 +245,6 @@ class AdminController extends BaseController {
     public function showRosterCleanup()
     {
         $users = User::where('status', '=', 0)->get();
-        return View::make('admin.rostertidy')->withErrors('users', $users);
+        return View::make('admin.rostertidy')->withErrors(['users', $users]);
     }
 }
