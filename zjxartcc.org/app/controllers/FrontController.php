@@ -19,7 +19,7 @@ class FrontController extends BaseController {
     public function loadHomeTables()
     {
         $online = ATC::all();
-        $weather = Weather::whereIn('id', array('KMKE', 'KMDW', 'KGRR', 'KFWA', 'KPIA', 'KRFD', 'KCMI'))->get();
+        $weather = Weather::whereIn('id', array('KORD', 'KMKE', 'KMDW', 'KGRR', 'KFWA', 'KPIA', 'KRFD', 'KCMI'))->get();
         $atcupdate = Settings::where('key', 'ATCUPDATE')->pluck('value');
         $wxupdate = Settings::where('key', 'WXUPDATE')->pluck('value');
 
