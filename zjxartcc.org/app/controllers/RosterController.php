@@ -145,7 +145,7 @@ public function store()
                 if($User->visitor == '0') {
                     Mail::send('emails.newmember', ['user' => $User], function($message) use ($User)
                     {
-                        $message->from('atm@ztlartcc.org', 'ZAU Member Department');
+                        $message->from('atm@zauartcc.org', 'ZAU Member Department');
                         $message->to(Input::get('email'))->subject('Welcome to the ZAU ARTCC!');
                         $message->cc('atm@zauartcc.org');
                         $message->cc('datm@zauartcc.org');
