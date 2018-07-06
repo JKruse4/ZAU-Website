@@ -6,7 +6,7 @@ class MentorController extends BaseController {
 
 	public function showRequests()
 	{
-		$sessions = MentorAvail::where('trainee_id', '!=', 0)->where('slot', '>', new Carbon('midnight today', 'America/New_York'))->orderBy('slot', 'ASC')->get();
+		$sessions = MentorAvail::where('trainee_id', '!=', 0)->where('slot', '>', new Carbon('midnight today', 'America/Chicago'))->orderBy('slot', 'ASC')->get();
 		return View::make('admin.mentors.sessions')->withErrors(['sessions', $sessions]);
 	}
 
